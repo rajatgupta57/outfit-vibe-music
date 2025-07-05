@@ -12,6 +12,26 @@ Built for **Call2Code Hackathon 2025**.
 
 ---
 
+## 📦 File Structure
+
+outfit-vibe-music/
+├── index.html
+├── style.css
+├── script.js
+├── supa-config.js
+├── config.js
+├── favicon.png
+├── screenshot1.png
+├── screenshot2.png
+├── screenshot3.png
+├── screenshot4.png
+├── screenshot5.png
+├── screenshot6.png
+├── screenshot7.png
+├── screenshot8.png
+├── screenshot9.png
+├── screenshot10.png
+└── README.md
 
 ---
 
@@ -115,4 +135,5 @@ Use Text-to-Speech
 
 Observe creative error page by submitting blank or invalid images
 
-<pre> ## 📦 File Structure ``` outfit-vibe-music/ ├── index.html ├── style.css ├── script.js ├── supa-config.js ├── config.js ├── favicon.png ├── screenshot1.png ├── screenshot2.png ├── screenshot3.png ├── screenshot4.png ├── screenshot5.png ├── screenshot6.png ├── screenshot7.png ├── screenshot8.png ├── screenshot9.png ├── screenshot10.png └── README.md ``` </pre>
+
+
