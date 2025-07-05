@@ -3,8 +3,6 @@
 *A fashion-meets-music web app that pairs your outfit's aesthetic with matching Spotify playlists.*  
 Built for **Call2Code Hackathon 2025**.
 
-> For Round 1, this is a manually-driven early prototype simulating what the final AI-driven experience would feel like.
-
 ---
 
 ## 🚀 Team
@@ -47,18 +45,17 @@ Built for **Call2Code Hackathon 2025**.
 ## 📸 Screenshots
 | Screen | Description |
 | ------ | ----------- |
-| ![Screenshot 1](screenshot1-homepage.png) | Homepage with dynamic sky, dark mode toggle |
-| ![Screenshot 2](screenshot2-preview.png) | Outfit upload and preview screen |
-| ![Screenshot 3](screenshot3-playlist.png) | Curated Spotify playlist recommendations |
-| ![Screenshot 4](screenshot4-error-page.png) | Creative error page |
-| ![Screenshot 5](screenshot5-manual-override.png) | Manual vibe selection |
-| ![Screenshot 6](screenshot6-tts.png) | Text-to-Speech controls |
-| ![Screenshot 7](screenshot7-translation.png) | Multilingual support demo |
-| ![Screenshot 8](screenshot8-loading-state.png) | Custom loading state animation |
-| ![Screenshot 9](screenshot9-time-display.png) | Live IST time display |
-| ![Screenshot 10](screenshot10-auth.png) | Sign-up/login with Supabase Auth |
+| ![Screenshot 1](screenshot1.png) | Homepage with dynamic sky, dark mode toggle |
+| ![Screenshot 2](screenshot2.png) | Outfit upload and preview screen |
+| ![Screenshot 3](screenshot3.png) | Curated Spotify playlist recommendations |
+| ![Screenshot 4](screenshot4.png) | Creative error page |
+| ![Screenshot 5](screenshot5.png) | Manual vibe selection |
+| ![Screenshot 6](screenshot6.png) | Text-to-Speech controls |
+| ![Screenshot 7](screenshot7.png) | Multilingual support demo |
+| ![Screenshot 8](screenshot8.png) | Custom loading state animation |
+| ![Screenshot 9](screenshot9.png) | Live IST time display |
+| ![Screenshot 10](screenshot10.png) | Sign-up/login with Supabase Auth |
 
-*(Replace or add your actual screenshots in these slots.)*
 
 ---
 
@@ -118,4 +115,25 @@ Use Text-to-Speech
 
 Observe creative error page by submitting blank or invalid images
 
+---
+
+## 📦 File Structure
+outfit-vibe-music/
+├── index.html
+├── style.css
+├── script.js
+├── supa-config.js
+├── config.js
+├── favicon.png
+├── screenshot1.png
+├── screenshot2.png
+├── screenshot3.png
+├── screenshot4.png
+├── screenshot5.png
+├── screenshot6.png
+├── screenshot7.png
+├── screenshot8.png
+├── screenshot9.png
+├── screenshot10.png
+├── README.md
 
