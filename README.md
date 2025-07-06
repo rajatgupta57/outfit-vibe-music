@@ -8,7 +8,7 @@ Built for **Call2Code Hackathon 2025**.
 ## 🚀 Team
 **Team Name:** Labubu Chasers  
 **Hackathon:** Call2Code 2025  
-**Members:** Ayush Kumar, Rajat Gupta, Shiv Sharma, Animesh Sharma
+**Members:** Ayush Kumar, Animesh Sharma, Rajat Gupta, Shiv Sharma
 
 ---
 
@@ -18,8 +18,6 @@ outfit-vibe-music/
 ├── index.html
 ├── style.css
 ├── script.js
-├── supa-config.js
-├── config.js
 ├── favicon.png
 ├── screenshot1.png
 ├── screenshot2.png
