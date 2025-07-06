@@ -15,7 +15,6 @@ Built for **Call2Code Hackathon 2025**.
 ## 📦 File Structure
 
 outfit-vibe-music/
-
 ├── index.html
 ├── style.css
 ├── script.js
