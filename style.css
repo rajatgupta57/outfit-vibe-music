@@ -491,6 +491,7 @@ body {
 }
 
 /* ===== TIME DISPLAY ===== */
+/* ===== TIME DISPLAY ===== */
 .time-display {
     position: fixed;
     top: 36px;
@@ -510,6 +511,69 @@ body {
     gap: 8px;
     box-shadow: var(--glass-shadow);
 }
+
+/* Header Controls Container */
+.header-controls {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .header-controls {
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        gap: 4px;
+    }
+    
+    .translation-controls {
+        position: static;
+    }
+    
+    .translate-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        border-radius: 20px;
+    }
+    
+    .time-display {
+        position: static;
+    }
+    
+    .current-time {
+        padding: 6px 10px;
+        font-size: 12px;
+        border-radius: 15px;
+    }
+    
+    .time-text {
+        font-size: 14px;
+    }
+    
+    .time-zone {
+        font-size: 10px;
+    }
+    
+    .dark-mode-toggle {
+        position: static;
+    }
+    
+    #darkModeBtn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
+
 
 .time-text {
     font-size: 18px;
