@@ -5,14 +5,14 @@ Built for **Call2Code Hackathon 2025**.
 
 ---
 
-## 🚀 Team
+##  Team
 **Team Name:** Labubu Chasers  
 **Hackathon:** Call2Code 2025  
 **Members:** Ayush Kumar, Animesh Sharma, Rajat Gupta, Shiv Sharma
 
 ---
 
-## 📦 File Structure
+##  File Structure
 
 outfit-vibe-music/
 ├── index.html
@@ -33,7 +33,7 @@ outfit-vibe-music/
 
 ---
 
-## 🌟 Features Implemented
+##  Features Implemented
 
 ### ✅ Easy Challenges
 - **Dark Mode Support:** Toggle for user/system preference for better usability.
@@ -49,18 +49,22 @@ outfit-vibe-music/
 
 ---
 
-## ⚙️ APIs Used
-- **Supabase**
-  - Auth API for sign-up/login
-  - Storage API for outfit image uploads
-  - Database API for storing and fetching playlist mappings
-- **AI Image Classification API** *(planned for production)* for automated vibe detection
-- **Spotify Embed API** for streaming matching playlists
-- **Web Speech API** for Text-to-Speech functionality
+##  APIs Used
+
+- **Supabase Auth API** – For secure user sign-up and login (email & Gmail)  
+- **Supabase Storage API** – For uploading and storing outfit check images  
+- **Supabase Database API** – For saving and fetching outfit data with playlists  
+- **Spotify Embed API** – For streaming curated Spotify playlists based on outfit style  
+- **Speech Synthesis API** – For converting playlist vibe into spoken words (Text-to-Speech)  
+- **File API** – For handling image uploads directly from user device  
+- **Canvas API** – For rendering and analyzing uploaded outfit images  
+- **DOM API** – For dynamic interaction with the frontend interface  
+- **Geolocation/Time API** – For detecting user location and time to personalize vibe  
+- **AI Image Classification API** _(planned)_ – For automatic detection of outfit style from images
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 | Screen | Description |
 | ------ | ----------- |
 | ![Screenshot 1](screenshot1.png) | Homepage with dynamic sky, dark mode toggle |
@@ -77,11 +81,26 @@ outfit-vibe-music/
 
 ---
 
-## 🛠️ Tech Stack
-- HTML, CSS, JavaScript
+## Tech Stack
+
+### 🔹 Frontend
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
+- Canvas API for image rendering
+- Speech Synthesis for Text-to-Speech
+- Netlify for frontend deployment
+
+### 🔹 Backend
 - Supabase (Auth, Storage, Database)
-- Spotify Embed API
-- Web Speech API
+- PostgreSQL (via Supabase)
+- Row Level Security (RLS) for secure data access
+
+### 🔹 Tools & Integration
+- Git & GitHub for version control
+- Google OAuth via Supabase for social login
+- Spotify Embed for playlist streaming
+
 
 ---
 
