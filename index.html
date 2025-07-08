@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="title">Outfit Vibe Music</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Dynamic Sky/Horizon Background -->
+    <div class="sky-container">
+        <div class="horizon-line"></div>
+        <div class="sun" id="dynamicSun">
+            <div class="sun-rays"></div>
+        </div>
+        <div class="clouds">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+        </div>
+        <div class="stars" id="starsContainer">
+            <div class="star star-1"></div>
+            <div class="star star-2"></div>
+            <div class="star star-3"></div>
+            <div class="star star-4"></div>
+            <div class="star star-5"></div>
+        </div>
+    </div>
+
+    <!-- Translation Controls -->
+    <div class="translation-controls">
+        <button id="translateBtn" class="translate-btn glass-button" title="Translate Website">
+            <span class="translate-icon">🌐</span>
+            <span class="translate-text">EN</span>
+        </button>
+        <div id="languageDropdown" class="language-dropdown" style="display: none;">
+            <div class="language-option" data-lang="en" data-name="English">🇺🇸 English</div>
+            <div class="language-option" data-lang="hi" data-name="हिंदी">🇮🇳 हिंदी</div>
+            <div class="language-option" data-lang="ta" data-name="தமிழ்">🇮🇳 தமிழ்</div>
+            <div class="language-option" data-lang="te" data-name="తెలుగు">🇮🇳 తెలుగు</div>
+            <div class="language-option" data-lang="bn" data-name="বাংলা">🇮🇳 বাংলা</div>
+            <div class="language-option" data-lang="mr" data-name="मराठी">🇮🇳 मराठी</div>
+        </div>
+    </div>
+
+    <!-- Time Display -->
+    <div class="time-display">
+        <div id="currentTime" class="current-time">
+            <span class="time-text">--:--</span>
+            <span class="time-zone">IST</span>
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <button id="darkModeBtn" onclick="toggleDarkMode()">🌙</button>
+    </div>
+
+    <div class="container">
+        <!-- Hero Header -->
+        <header class="hero-header">
+            <h1 class="main-title">
+                <span class="title-line-group">
+                    <span class="title-word" data-translate="outfit">OUTFIT</span>
+                    <span class="title-word" data-translate="vibe">VIBE</span>
+                </span>
+                <span class="title-line accent" data-translate="music">MUSIC</span>
+            </h1>
+            <p class="hero-subtitle" data-translate="subtitle">Your outfit sets the vibe, we set the playlist!</p>
+        </header>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Upload Card -->
+            <div class="upload-card glass-card">
+                <div class="card-header">
+                    <h2 class="card-title" data-translate="upload-title">Upload Your Fit</h2>
+                    <p class="card-subtitle" data-translate="upload-subtitle">Drop your outfit pic and let AI do the magic</p>
+                </div>
+                
+                <div class="upload-zone">
+                    <input type="file" id="imageInput" accept="image/*" hidden>
+                    <label for="imageInput" class="upload-area glass-button">
+                        <div class="upload-content">
+                            <div class="upload-icon">📸</div>
+                            <span class="upload-text" data-translate="upload-text">Click or Drop Image</span>
+                            <span class="upload-hint" data-translate="upload-hint">JPG, PNG up to 10MB</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Manual Override Card -->
+            <div class="override-card glass-card">
+                <div class="card-header">
+                    <h2 class="card-title" data-translate="manual-title">Manual Override</h2>
+                    <p class="card-subtitle" data-translate="manual-subtitle">Don't trust the AI? DIY! 💅</p>
+                </div>
+                
+                <div class="vibe-selector">
+                    <div class="vibe-option glass-button" data-vibe="casual">
+                        <div class="vibe-icon">🌈</div>
+                        <div class="vibe-label" data-translate="casual">Casual</div>
+                    </div>
+                    <div class="vibe-option glass-button" data-vibe="formal">
+                        <div class="vibe-icon">💼</div>
+                        <div class="vibe-label" data-translate="formal">Formal</div>
+                    </div>
+                    <div class="vibe-option glass-button" data-vibe="sporty">
+                        <div class="vibe-icon">⚡</div>
+                        <div class="vibe-label" data-translate="sporty">Sporty</div>
+                    </div>
+                    <div class="vibe-option glass-button" data-vibe="party">
+                        <div class="vibe-icon">🎉</div>
+                        <div class="vibe-label" data-translate="party">Party</div>
+                    </div>
+                    <div class="vibe-option glass-button" data-vibe="artsy">
+                        <div class="vibe-icon">🎨</div>
+                        <div class="vibe-label" data-translate="artsy">Artsy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div id="previewSection" class="preview-section" style="display: none;">
+            <div class="preview-card glass-card">
+                <h2 class="section-title" data-translate="preview-title">Your Outfit Preview</h2>
+                <div id="imagePreview" class="image-preview"></div>
+                <button id="analyzeBtn" class="analyze-btn glass-button">
+                    <span class="btn-text" data-translate="analyze-btn">✨ Analyze My Vibe</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Section -->
+        <div id="loadingSection" class="loading-section" style="display: none;">
+            <div class="loading-card glass-card">
+                <div class="loading-animation">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </div>
+                <h2 class="loading-title" data-translate="loading-title">Analyzing Your Vibe</h2>
+                <p id="loadingMessage" class="loading-message" data-translate="loading-message">🎵 Processing your outfit...</p>
+                <div id="loadingContainer"></div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <div class="results-grid">
+                <div class="vibe-card glass-card">
+                    <h2 class="section-title" data-translate="vibe-title">Your Vibe</h2>
+                    <div class="vibe-display">
+                        <div id="vibeEmoji" class="vibe-emoji-large">🌈</div>
+                        <h3 id="vibeType" class="vibe-type">CASUAL</h3>
+                        <p id="vibeDescription" class="vibe-description">
+                            <span data-translate="casual-desc">Relaxed and comfortable! Perfect for a chill day.</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="playlist-card glass-card">
+                    <h2 class="section-title" data-translate="playlist-title">Your Perfect Playlist</h2>
+                    <div id="spotifyEmbed" class="spotify-embed"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Gen Z Error Section -->
+<div id="errorSection" class="error-section" style="display: none;">
+    <div class="error-card glass-card">
+        <div class="error-animation">
+            <div class="glitch-emoji">🎵</div>
+            <div class="floating-emojis">
+                <span class="float-emoji">💀</span>
+                <span class="float-emoji">😭</span>
+                <span class="float-emoji">🤡</span>
+                <span class="float-emoji">💯</span>
+                <span class="float-emoji">🔥</span>
+            </div>
+        </div>
+        
+        <div class="error-content">
+            <h2 class="error-title glitch-text" data-translate="error-title">
+                <span class="error-code">404</span>
+                <span class="error-main">Outfit Not Found!</span>
+            </h2>
+            
+            <div class="error-messages">
+                <p class="error-message main-msg" data-translate="error-message">
+                    Bestie, your fit is giving... <span class="highlight">invisible</span> ✨
+                </p>
+                <p class="error-submessage" data-translate="error-submessage">
+                    No cap, even our AI said "I can't even" 💀
+                </p>
+                <p class="error-extra">
+                    Your outfit is so fire it <span class="rainbow-text">broke the internet</span> fr fr 🔥
+                </p>
+            </div>
+            
+            <div class="error-suggestions">
+                <div class="suggestion-item">
+                    <span class="suggestion-emoji">📸</span>
+                    <span>Try uploading a clearer pic, bestie</span>
+                </div>
+                <div class="suggestion-item">
+                    <span class="suggestion-emoji">💅</span>
+                    <span>Or just vibe with manual selection</span>
+                </div>
+                <div class="suggestion-item">
+                    <span class="suggestion-emoji">🎶</span>
+                    <span>Either way, we got the playlist ready!</span>
+                </div>
+            </div>
+            
+            <div class="error-actions">
+                <button onclick="app.resetApp()" class="retry-btn glass-button glow-btn" data-translate="retry-btn">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Try Another Fit</span>
+                    <div class="btn-sparkles">✨</div>
+                </button>
+                
+                <button onclick="document.querySelector('.vibe-selector').scrollIntoView({behavior: 'smooth'})" class="manual-btn glass-button">
+                    <span class="btn-icon">💅</span>
+                    <span class="btn-text">Manual Vibe Check</span>
+                </button>
+            </div>
+            
+            <div class="error-footer">
+                <p class="error-quote">"It's giving main character energy, but make it error page" 💅✨</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text" data-translate="footer-text">Made with ❤️ for Call2Code Hackathon 2025</p>
+        </footer>
+    </div>
+
+    <!-- Translation Loading Overlay -->
+    <div id="translationLoader" class="translation-loader" style="display: none;">
+        <div class="translation-spinner">
+            <div class="spinner-ring"></div>
+            <p data-translate="translating">Translating...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+
+        const SUPABASE_URL = 'https://yzrsbuaulvaemyjzvvlb.supabase.co/';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6cnNidWF1bHZhZW15anp2dmxiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE3MTcyMTUsImV4cCI6MjA2NzI5MzIxNX0.xJUze093BDXLjvneI3f8CIlpt6O_RCIG10r2psbrNiA';
+
+        // Initialize Supabase client
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        window.supabaseClient = supabase;
+
+        // Test Supabase connection
+        async function testSupabaseConnection() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('style_playlists')
+                    .select('*')
+                    .limit(1);
+                    
+                if (error) {
+                    console.error('Database connection error:', error);
+                    return false;
+                }
+                
+                console.log('✅ Supabase connection successful!', data);
+                return true;
+            } catch (err) {
+                console.error('❌ Supabase connection failed:', err);
+                return false;
+            }
+        }
+
+        // Authentication functions
+        async function signUpWithEmail(email, password) {
+            const { data, error } = await supabaseClient.auth.signUp({
+                email: email,
+                password: password,
+            });
+            
+            if (error) {
+                console.error('Sign up error:', error);
+                return { success: false, error: error.message };
+            }
+            
+            return { success: true, user: data.user };
+        }
+
+        async function signInWithEmail(email, password) {
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+            
+            if (error) {
+                console.error('Sign in error:', error);
+                return { success: false, error: error.message };
+            }
+            
+            return { success: true, user: data.user };
+        }
+
+        async function getCurrentUser() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            return user;
+        }
+
+        async function signOut() {
+            const { error } = await supabaseClient.auth.signOut();
+            if (error) {
+                console.error('Sign out error:', error);
+                return { success: false, error: error.message };
+            }
+            return { success: true };
+        }
+
+        // Image upload function
+        async function uploadOutfitImage(file, userId) {
+            try {
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${userId}/${Date.now()}.${fileExt}`;
+                
+                const { data, error } = await supabaseClient.storage
+                    .from('outfit-images')
+                    .upload(fileName, file);
+                
+                if (error) {
+                    console.error('Upload error:', error);
+                    return { success: false, error: error.message };
+                }
+                
+                // Get public URL
+                const { data: urlData } = supabaseClient.storage
+                    .from('outfit-images')
+                    .getPublicUrl(fileName);
+                
+                return { success: true, url: urlData.publicUrl, path: fileName };
+            } catch (err) {
+                console.error('Upload failed:', err);
+                return { success: false, error: err.message };
+            }
+        }
+
+        // Fetch playlists by style
+        async function getPlaylistsByStyle(style) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('style_playlists')
+                    .select('*')
+                    .eq('style_name', style)
+                    .eq('is_active', true)
+                    .limit(6);
+                
+                if (error) {
+                    console.error('Playlist fetch error:', error);
+                    return { success: false, error: error.message };
+                }
+                
+                return { success: true, playlists: data };
+            } catch (err) {
+                console.error('Playlist fetch failed:', err);
+                return { success: false, error: err.message };
+            }
+        }
+
+        // Save outfit check to history
+        async function saveOutfitCheck(userId, imageUrl, detectedStyle, playlistIds) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('outfit_checks')
+                    .insert([{
+                        user_id: userId,
+                        image_url: imageUrl,
+                        detected_style: detectedStyle,
+                        playlist_ids: playlistIds,
+                        confidence_score: 0.85 // Mock confidence score
+                    }]);
+                
+                if (error) {
+                    console.error('Save outfit check error:', error);
+                    return { success: false, error: error.message };
+                }
+                
+                return { success: true, data: data };
+            } catch (err) {
+                console.error('Save outfit check failed:', err);
+                return { success: false, error: err.message };
+            }
+        }
+
+        // Get user's outfit history
+        async function getUserOutfitHistory(userId) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('outfit_checks')
+                    .select('*')
+                    .eq('user_id', userId)
+                    .order('created_at', { ascending: false });
+                
+                if (error) {
+                    console.error('History fetch error:', error);
+                    return { success: false, error: error.message };
+                }
+                
+                return { success: true, history: data };
+            } catch (err) {
+                console.error('History fetch failed:', err);
+                return { success: false, error: err.message };
+            }
+        }
+
+        // Test connection when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            testSupabaseConnection();
+        });
+    </script>
+
+    <!-- Login Modal -->
+<div class="modal" id="login-modal" style="display: none;">
+    <div class="modal-content" style="background: rgba(255,255,255,0.95); color: #000; margin: 10% auto; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px;">
+        <span class="close" id="close-modal" style="float: right; font-size: 28px; cursor: pointer;">&times;</span>
+        <h2 style="color: #000; margin-bottom: 20px;">Login to Outfit Vibe Music</h2>
+        
+        <form id="login-form" style="display: block;">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="email" style="display: block; margin-bottom: 5px; color: #000;">Email:</label>
+                <input type="email" id="email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="password" style="display: block; margin-bottom: 5px; color: #000;">Password:</label>
+                <input type="password" id="password" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+            </div>
+            <button type="submit" class="submit-btn" style="width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Login</button>
+            <p class="switch-auth" style="text-align: center; margin-top: 15px; color: #000;">
+                Don't have an account? <a href="#" id="switch-to-signup" style="color: #007bff;">Sign up</a>
+            </p>
+        </form>
+        
+        <form id="signup-form" style="display: none;">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="signup-email" style="display: block; margin-bottom: 5px; color: #000;">Email:</label>
+                <input type="email" id="signup-email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="signup-password" style="display: block; margin-bottom: 5px; color: #000;">Password:</label>
+                <input type="password" id="signup-password" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="confirm-password" style="display: block; margin-bottom: 5px; color: #000;">Confirm Password:</label>
+                <input type="password" id="confirm-password" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+            </div>
+            <button type="submit" class="submit-btn" style="width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Sign Up</button>
+            <p class="switch-auth" style="text-align: center; margin-top: 15px; color: #000;">
+                Already have an account? <a href="#" id="switch-to-login" style="color: #007bff;">Login</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+
+    <!-- ADD A LOGIN BUTTON TO YOUR HEADER -->
+    <div class="user-menu" id="user-menu" style="position: fixed; top: 40px; right: 260px; z-index: 100;">
+    <button class="login-btn glass-button" id="login-btn">Login</button>
+</div>
+
+    <script src="script.js"></script>
+<script>
+// Fix login button
+document.addEventListener('DOMContentLoaded', function() {
+    const loginBtn = document.getElementById('login-btn');
+    const loginModal = document.getElementById('login-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    
+    console.log('Login button found:', !!loginBtn);
+    console.log('Modal found:', !!loginModal);
+    
+    if (loginBtn && loginModal) {
+        // Remove any existing click handlers
+        loginBtn.onclick = null;
+        
+        // Add new click handler
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Login button clicked!');
+            loginModal.style.display = 'block';
+        });
+        
+        console.log('✅ Login button handler attached');
+    } else {
+        console.error('❌ Login button or modal not found');
+    }
+    
+    // Close modal handlers
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+        });
+    }
+    
+    // Close modal when clicking outside
+    if (loginModal) {
+        window.addEventListener('click', function(event) {
+            if (event.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+    }
+});
+</script>
+    <!-- Add this script before </body> in your HTML file -->
+    <script>
+    // Quick signup/login fix
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const switchToSignup = document.getElementById('switch-to-signup');
+        const switchToLogin = document.getElementById('switch-to-login');
+        
+        // Form switching
+        if (switchToSignup) {
+            switchToSignup.onclick = function(e) {
+                e.preventDefault();
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+            };
+        }
+        
+        if (switchToLogin) {
+            switchToLogin.onclick = function(e) {
+                e.preventDefault();
+                signupForm.style.display = 'none';
+                loginForm.style.display = 'block';
+            };
+        }
+        
+        // Signup form handler
+        if (signupForm) {
+            signupForm.onsubmit = async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return;
+                }
+                
+                try {
+                    const result = await signUpWithEmail(email, password);
+                    if (result.success) {
+                        alert('Sign up successful! Please check your email for confirmation.');
+                        signupForm.style.display = 'none';
+                        loginForm.style.display = 'block';
+                    } else {
+                        alert('Sign up failed: ' + result.error);
+                    }
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                }
+            };
+        }
+        
+        // Login form handler
+        if (loginForm) {
+            loginForm.onsubmit = async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                try {
+                    const result = await signInWithEmail(email, password);
+                    if (result.success) {
+                        document.getElementById('login-modal').style.display = 'none';
+                        document.getElementById('login-btn').textContent = email.split('@')[0];
+                    } else {
+                        alert('Login failed: ' + result.error);
+                    }
+                } catch (error) {
+                    alert('Error: ' + error.message);
+                }
+            };
+        }
+    });
+    </script>
+
+</body>
+</html>
