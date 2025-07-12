@@ -113,21 +113,29 @@ outfit-vibe-music/
 
 
 1️⃣ Clone the repository:
+
 git clone https://github.com/rajatgupta57/outfit-vibe-music.git
+
 cd outfit-vibe-music
+
 2️⃣ Install dependencies (if using any, e.g. npm for frameworks):
+
 npm install
-(Skip if pure HTML/CSS/JS.)
 
 3️⃣ Add your Supabase project URL and Anon Key in supa-config.js:
+
 const SUPABASE_URL = 'your-supabase-url';
+
 const SUPABASE_ANON_KEY = 'your-anon-key';
 
 4️⃣ Start a local server (optional for testing):
+
 npx live-server
+
 Or simply open index.html in your browser.
 
 5️⃣ Test Features:
+
 Upload outfit photos
 
 Try Manual Override
