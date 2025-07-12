@@ -114,7 +114,7 @@ outfit-vibe-music/
 
 1️⃣ Clone the repository:
 ```bash
-git clone https://github.com/yourusername/outfit-vibe-music.git
+git clone https://github.com/rajatgupta57/outfit-vibe-music.git
 cd outfit-vibe-music
 2️⃣ Install dependencies (if using any, e.g. npm for frameworks):
 bash
